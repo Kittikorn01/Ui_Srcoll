@@ -15,14 +15,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
+  MyHomePage({super.key});
+  final List<String> item = List<String>.generate(50, (i) => 'Item ${i + 1}');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,19 +31,17 @@ class MyHomePage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
       ),
-      body: GridView.count(
-        padding: EdgeInsets.all(10.0),
-        mainAxisSpacing: 10.0,
-        crossAxisSpacing: 10.0,
-        crossAxisCount: 3,
-        childAspectRatio: 1.5,
-        children: List<Widget>.generate(60, (index) {
-          // สร้างไอเท็มตัวอย่าง 20 อัน
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+        ),
+        itemCount: item.length,
+        itemBuilder: (context, index) {
           return Container(
-            color: Colors.teal[100 + (index % 8) * 100],
-            child: Center(child: Text('Item $index')),
+            color: Colors.deepPurple[100 + (index % 8) * 100],
+            child: Center(child: Text('Tile $index')),
           );
-        }),
+        },
       ),
     );
   }
