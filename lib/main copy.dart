@@ -15,14 +15,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
-  final List<String> item = List<String>.generate(50, (i) => 'Item ${i + 1}');
+  const MyHomePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,14 +31,20 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Colors.blueAccent,
       ),
       body: GridView.builder(
+        padding: EdgeInsets.all(2),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
+          childAspectRatio: 2,
         ),
-        itemCount: item.length,
+        itemCount: 100,
         itemBuilder: (context, index) {
           return Container(
-            color: Colors.deepPurple[100 + (index % 8) * 100],
-            child: Center(child: Text('Tile $index')),
+            width: 4,
+            height: 2,
+            color: Colors.deepPurple[100 + (index % 6) * 100],
+            child: Center(child: Text('Index ${index + 1}')),
           );
         },
       ),
